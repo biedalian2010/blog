@@ -18,7 +18,7 @@
       <ul>
         <li class="category"> Website</li>
         <li> <%= link_to "blog", root_path %> </li>
-        <li>About </li>
+        <li><%= link_to "about", about_path %> </li>
       </ul>
 
       <ul>
@@ -28,18 +28,27 @@
         <li><a href="http://biedaliam-blog.logdown.com/"> Blog</a></li>
         <li><a href="mailto:cp13918089730@gmail.com"> Email</a></li>
       </ul>
+      <% if !user_signed_in? %>
       <p class="sing_in">Admin login</p>
+      <% end %>
     </div>
 
     <div id="main_content">
       <div id="header">
-        <p>All Posts </p>
+        <% if current_page?(root_path) %>
+        <p>All Posts</p>
+        <% elsif current_page?(about_path) %>
+        <p>about</p>
+        <% else %>
+        <%= link_to "Back to All Post", root_path %>
+        <% end %>
 
-
+        <% if user_signed_in? %>
         <div class="buttons">
           <button class="button"><%= link_to "New Post", new_post_path %></button>
           <button class="button">Log Out </buton>
           </div>
+          <% end %>
         </div>
 
         <%flash.each do |name, msg| %>
